@@ -7,7 +7,11 @@ def init():
     os.makedirs(f'{VCS_DIR}/objects')
 
 def hash_object(data):
-    oid = hashlib.sha1(data).hexdigest()
-    with open(f'{VCS_DIR}/objects/{oid}', 'wb') as out:
+    object_id = hashlib.sha1(data).hexdigest()
+    with open(f'{VCS_DIR}/objects/{object_id}', 'wb') as out:
         out.write(data)
-    return oid
+    return object_id
+
+def get_object(object_id):
+    with open(f'{VCS_DIR}/objects/{object_id}', rb) as f:
+        return f.read()
