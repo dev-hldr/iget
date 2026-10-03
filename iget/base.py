@@ -69,5 +69,20 @@ def read_tree(tree_obj_id):
         with open(path, 'wb') as f:
             f.write(data.get_object(obj_id))
 
+def commit(message):
+    commit = f'tree {write_tree()}\n'
+
+    HEAD = data.get_HEAD()
+    if HEAD:
+        commit += f'parent {HEAD}\n'
+
+    commit += '\n'
+    commit += f'{message}\n'
+
+    obj_id = data.hash_object(commit.encode(), 'commit')
+    data.set_HEAD(obj_id)
+
+    return obj_id
+
 def is_ignored(path):
     return '.iget' in path.split('/')

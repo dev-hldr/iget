@@ -6,6 +6,15 @@ def init():
     os.makedirs(VCS_DIR)
     os.makedirs(f'{VCS_DIR}/objects')
 
+def set_HEAD(obj_id):
+    with open(f'{VCS_DIR}/HEAD', 'w') as f:
+        f.write(obj_id)
+
+def get_HEAD():
+    if os.path.isfile(f'{VCS_DIR}/HEAD'):
+        with open(f'{VCS_DIR}/HEAD') as f:
+            return f.read().strip()
+
 def hash_object(data, type_='blob'):
     obj = type_.encode() + b'\x00' + data
     obj_id = hashlib.sha1(obj).hexdigest()
