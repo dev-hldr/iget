@@ -1,4 +1,6 @@
 import argparse
+import os
+from . import data
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -13,4 +15,5 @@ def main():
     args.func(args)
 
 def init(args):
-    print("Hello World!")
+    data.init ()
+    print (f'Initialized empty iget repository in {os.getcwd()}/{data.VCS_DIR}')
