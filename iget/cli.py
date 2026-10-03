@@ -18,7 +18,7 @@ def parse_args():
 
     cat_file_parser = commands.add_parser('cat-file')
     cat_file_parser.set_defaults(func=cat_file)
-    hash_object_parser.add_argument('object')
+    cat_file_parser.add_argument('object')
 
     return parser.parse_args()
 
@@ -32,7 +32,7 @@ def init(args):
 
 def hash_object(args):
     with open(args.file, 'rb') as f:
-        print(data.hash_object (f.read()))
+        print(data.hash_object(f.read()))
 
 def cat_file(args):
     sys.stdout.flush()

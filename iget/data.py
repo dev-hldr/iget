@@ -13,5 +13,5 @@ def hash_object(data):
     return object_id
 
 def get_object(object_id):
-    with open(f'{VCS_DIR}/objects/{object_id}', rb) as f:
+    with open(f'{VCS_DIR}/objects/{object_id}', 'rb') as f:
         return f.read()
