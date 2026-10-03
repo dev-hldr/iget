@@ -1,6 +1,8 @@
 import argparse
 import os
 import sys
+import textwrap
+
 from . import data
 from . import base
 
@@ -32,6 +34,10 @@ def parse_args():
     commit_parser.set_defaults(func=commit)
     commit_parser.add_argument('-m', '--message', required=True)
 
+    log_parser = commands.add_parser('log')
+    log_parser.set_defaults(func=log)
+    log_parser.add_argument('obj_id', nargs='?')
+
     return parser.parse_args()
 
 def main():
@@ -58,3 +64,12 @@ def read_tree(args):
 
 def commit(args):
     print(base.commit(args.message))
+
+def log(args):
+    obj_id = args.obj_id or data.get_HEAD()
+    while obj_id:
+        commit = base.get_commit(obj_id)
+        print(f'commit {obj_id}\n')
+        print(textwrap.indent(commit.message, '    '))
+        print('')
+        obj_id = commit.parent
